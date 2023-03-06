@@ -21,16 +21,24 @@ class _SelectedLetterState extends State<SelectedLetter>
   List<Animation<double>> _getTweens(int tweenNumber) {
     return List.generate(
       tweenNumber,
-      (index) => Tween(
-        begin: 0.0,
-        end: 90 / 360,
-      ).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: Interval(0.2 * index, (0.2 * index + 0.2),
-              curve: gameAnimationCurve),
-        ),
-      ),
+      (index) {
+        // double interval = 1 / tweenNumber;
+        double interval = 0.2;
+        double begin = interval * index;
+        return Tween(
+          begin: 0.0,
+          end: 90 / 360,
+        ).animate(
+          CurvedAnimation(
+            parent: _controller,
+            curve: Interval(
+              begin,
+              begin + interval,
+              curve: gameAnimationCurve,
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -38,7 +46,7 @@ class _SelectedLetterState extends State<SelectedLetter>
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2500))
+        vsync: this, duration: const Duration(milliseconds: 1250))
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           setState(() {});
@@ -146,11 +154,7 @@ class Letter extends StatelessWidget {
     return AnimatedContainer(
       duration: gameAnimationDuration,
       decoration: curvedBox.copyWith(
-        color: done
-            ? won
-                ? Colors.greenAccent
-                : Colors.redAccent
-            : Colors.white,
+        color: done ? Colors.white : const Color.fromRGBO(255, 255, 254, 1),
         boxShadow: [gameBoxShadow],
       ),
       onEnd: () {
@@ -159,14 +163,18 @@ class Letter extends StatelessWidget {
         }
       },
       child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 2500),
+        duration: const Duration(milliseconds: 1250),
         curve: Interval(begin, end),
+        onEnd: () {},
         opacity: started || done ? 0 : 1,
         child: Center(
           child: Text(
             text,
             style: const TextStyle(
-                fontSize: 20, color: Color.fromRGBO(116, 88, 207, 1)),
+              fontSize: 20,
+              color: Color.fromRGBO(116, 88, 207, 1),
+              fontFamily: "Roboto",
+            ),
           ),
         ),
       ),

@@ -55,15 +55,19 @@ class _GameState extends State<Game> {
               ),
               SelectedLetter(gameController: controller),
               const Spacer(),
-              Wrap(
-                alignment: WrapAlignment.spaceEvenly,
-                children: List.generate(
-                  10,
-                  (index) => SelectableLetter(
-                    index: index,
-                    onTap: () {
-                      controller.selectWord(index);
-                    },
+              SizedBox(
+                width: 400,
+                child: Wrap(
+                  alignment: WrapAlignment.spaceEvenly,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: List.generate(
+                    10,
+                    (index) => SelectableLetter(
+                      index: index,
+                      onTap: () {
+                        controller.selectWord(index);
+                      },
+                    ),
                   ),
                 ),
               )

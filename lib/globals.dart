@@ -37,3 +37,17 @@ const BoxShadow gameBoxShadow = BoxShadow(
 );
 BoxDecoration curvedBox = BoxDecoration(borderRadius: BorderRadius.circular(8));
 const backgroundBoxColor = Color.fromRGBO(131, 100, 232, .4);
+const winBackgroundGradient = LinearGradient(
+  colors: [
+    Color.fromRGBO(130, 244, 177, 1),
+    Color.fromRGBO(48, 198, 124, 1),
+  ],
+  end: Alignment(0, 1),
+);
+const lossBackgroundGradient = LinearGradient(
+  colors: [
+    Color.fromRGBO(255, 184, 142, 1),
+    Color.fromRGBO(234, 87, 83, 1),
+  ],
+  end: Alignment(0, 1),
+);
